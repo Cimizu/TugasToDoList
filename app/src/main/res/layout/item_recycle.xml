@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/kotak_ungu">
 
 <!--    <TextView-->
 <!--        android:id="@+id/kotakUngu"-->
-<!--        android:layout_width="397dp"-->
-<!--        android:layout_height="102dp"-->
+<!--        android:layout_width="410dp"-->
+<!--        android:layout_height="200dp"-->
 <!--        android:background="@drawable/kotak_ungu"-->
-<!--        tools:layout_editor_absoluteX="7dp"-->
+<!--        tools:layout_editor_absoluteX="0dp"-->
 <!--        tools:layout_editor_absoluteY="16dp" />-->
 
     <TextView
@@ -39,17 +40,19 @@
         android:id="@+id/tanggal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:text="tanggal"
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="54dp" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="Kategori: "
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -58,42 +61,54 @@
         android:id="@+id/kategori"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
         android:text="Kategori"
         android:textSize="14dp"
-        tools:layout_editor_absoluteX="89dp"
-        tools:layout_editor_absoluteY="94dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView12"
+        app:layout_constraintStart_toEndOf="@+id/textView12"
+        app:layout_constraintTop_toTopOf="@+id/textView12" />
 
     <TextView
         android:id="@+id/deskripsi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Deskripsi"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="125dp" />
+        android:ellipsize="end"
+        android:maxLines="3"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <Button
         android:id="@+id/btnHapus"
         android:layout_width="99dp"
         android:layout_height="46dp"
+        android:layout_marginTop="8dp"
         android:text="HAPUS"
-        tools:layout_editor_absoluteX="11dp"
-        tools:layout_editor_absoluteY="160dp" />
+        app:layout_constraintStart_toStartOf="@+id/deskripsi"
+        app:layout_constraintTop_toBottomOf="@+id/deskripsi" />
 
     <Button
         android:id="@+id/btnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:text="UBAH"
-        tools:layout_editor_absoluteX="137dp"
-        tools:layout_editor_absoluteY="160dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnHapus"
+        app:layout_constraintStart_toEndOf="@+id/btnHapus"
+        app:layout_constraintTop_toTopOf="@+id/btnHapus"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnKerjakan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:text="KERJAKAN"
-        tools:layout_editor_absoluteX="259dp"
-        tools:layout_editor_absoluteY="160dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
+        app:layout_constraintStart_toEndOf="@+id/btnEdit"
+        app:layout_constraintTop_toTopOf="@+id/btnEdit"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

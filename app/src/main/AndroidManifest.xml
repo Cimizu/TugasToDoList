@@ -13,6 +13,12 @@
         android:theme="@style/Theme.TugasToDoList"
         tools:targetApi="31">
         <activity
+            android:name=".addTask"
+            android:exported="false" />
+        <activity
+            android:name=".isi_task"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
