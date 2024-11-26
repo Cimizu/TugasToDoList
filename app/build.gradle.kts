@@ -1,11 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlinParcelize)
 }
 
 android {
     namespace = "c14220131.paba.tugastodolist"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "c14220131.paba.tugastodolist"

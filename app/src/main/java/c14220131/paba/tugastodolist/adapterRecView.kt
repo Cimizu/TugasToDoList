@@ -7,6 +7,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class adapterRecView (private val listTask:ArrayList<tasklist>) : RecyclerView.Adapter<adapterRecView.ListViewHolder>(){
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data:tasklist)
+
+    }
+    fun setInItemClickCallback(onItemClickCallback: OnItemClickCallback){
+        this.onItemClickCallback=onItemClickCallback
+    }
 
 
     inner class ListViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){

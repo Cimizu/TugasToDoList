@@ -1,13 +1,21 @@
 package c14220131.paba.tugastodolist
 
+import android.app.ComponentCaller
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
+    private var arTask = arrayListOf<tasklist>()
+    private lateinit var _rwTask : RecyclerView
+    private lateinit var adapterTask: adapterRecView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -17,7 +25,34 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        var _tambah =  findViewById<FloatingActionButton>(R.id.fab)
+        _rwTask = findViewById<RecyclerView>(R.id.rvJadwal)
 
+
+        var _tambah =  findViewById<FloatingActionButton>(R.id.fab)
+        _tambah.setOnClickListener{
+            val intent = Intent(this@MainActivity, addTask::class.java)
+            startActivityForResult(intent, 1) // Gunakan startActivityForResult
+        }
+
+        TampilkanData()
+
+
+
+    }
+    fun TampilkanData(){
+        _rwTask.layoutManager = LinearLayoutManager(this)
+        adapterTask = adapterRecView(arTask)
+        _rwTask.adapter = adapterTask
+
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            val newTask = data.getParcelableExtra<tasklist>("newTask")
+            if (newTask != null) {
+                arTask.add(newTask) // Tambahkan data ke array
+                adapterTask.notifyItemInserted(arTask.size - 1) // Perbarui RecyclerView
+            }
+        }
     }
 }
