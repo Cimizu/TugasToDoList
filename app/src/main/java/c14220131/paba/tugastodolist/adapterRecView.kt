@@ -55,10 +55,10 @@ class adapterRecView (private val listTask:ArrayList<tasklist>) : RecyclerView.A
             onItemClickCallback.editData(position)
         }
         // Tombol Kerjakan/Selesai
-        holder._btnStart.text = "Kerjakan"
+        holder._btnStart.text = "KERJAKAN"
         holder._btnStart.setOnClickListener {
-            if (holder._btnStart.text == "Kerjakan") {
-                holder._btnStart.text = "Selesai"
+            if (holder._btnStart.text == "KERJAKAN") {
+                holder._btnStart.text = "SELESAI"
                 holder._btnUbah.isEnabled = false // Nonaktifkan tombol edit
             } else {
                 onItemClickCallback.completeTask(position) // Hapus task
