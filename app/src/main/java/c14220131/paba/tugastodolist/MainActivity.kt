@@ -83,6 +83,12 @@ class MainActivity : AppCompatActivity() {
 
             }
 
+            override fun completeTask(pos: Int) {
+                arTask.removeAt(pos)
+                TampilkanData()
+                Toast.makeText(this@MainActivity, "Task selesai!", Toast.LENGTH_SHORT).show()
+            }
+
 
         })
 

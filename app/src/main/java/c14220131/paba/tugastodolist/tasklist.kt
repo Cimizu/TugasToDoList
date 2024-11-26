@@ -8,5 +8,5 @@ data class tasklist(
     var tanggal :String,
     var deskripsi:String,
     var judul:String,
-    var kategori:String
+    var kategori:String,
 ):Parcelable

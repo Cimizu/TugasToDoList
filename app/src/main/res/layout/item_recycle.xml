@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/kotak_ungu">
+    android:background="@drawable/kotak_ungu"
+    android:layout_margin="6dp">
 
 <!--    <TextView-->
 <!--        android:id="@+id/kotakUngu"-->
@@ -83,7 +84,7 @@
         android:id="@+id/btnHapus"
         android:layout_width="99dp"
         android:layout_height="46dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:text="HAPUS"
         app:layout_constraintStart_toStartOf="@+id/deskripsi"
         app:layout_constraintTop_toBottomOf="@+id/deskripsi" />
@@ -92,7 +93,7 @@
         android:id="@+id/btnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:text="UBAH"
         app:layout_constraintBottom_toBottomOf="@+id/btnHapus"
         app:layout_constraintStart_toEndOf="@+id/btnHapus"
@@ -103,12 +104,12 @@
         android:id="@+id/btnKerjakan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:text="KERJAKAN"
         app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
         app:layout_constraintStart_toEndOf="@+id/btnEdit"
         app:layout_constraintTop_toTopOf="@+id/btnEdit"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
