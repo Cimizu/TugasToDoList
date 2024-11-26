@@ -84,6 +84,7 @@
         android:id="@+id/btnHapus"
         android:layout_width="99dp"
         android:layout_height="46dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
         android:text="HAPUS"
         app:layout_constraintStart_toStartOf="@+id/deskripsi"
