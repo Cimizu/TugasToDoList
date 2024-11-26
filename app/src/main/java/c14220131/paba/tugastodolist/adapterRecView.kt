@@ -12,6 +12,7 @@ class adapterRecView (private val listTask:ArrayList<tasklist>) : RecyclerView.A
 
     interface OnItemClickCallback {
         fun delData(pos:Int)
+        fun editData(pos: Int)
 
     }
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
@@ -24,6 +25,7 @@ class adapterRecView (private val listTask:ArrayList<tasklist>) : RecyclerView.A
         var _judul = itemView.findViewById<TextView>(R.id.namaTask)
         var _tanggal = itemView.findViewById<TextView>(R.id.tanggal)
         var _btnHapus = itemView.findViewById<Button>(R.id.btnHapus)
+        var _btnUbah = itemView.findViewById<Button>(R.id.btnEdit)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -43,6 +45,9 @@ class adapterRecView (private val listTask:ArrayList<tasklist>) : RecyclerView.A
         holder._deskripsi.setText(task.deskripsi)
         holder._btnHapus.setOnClickListener{
             onItemClickCallback.delData(position)
+        }
+        holder._btnUbah.setOnClickListener{
+            onItemClickCallback.editData(position)
         }
     }
 }

@@ -25,38 +25,37 @@ class addTask : AppCompatActivity() {
         var _editNama = findViewById<EditText>(R.id.editNama)
         var _btnSimpan = findViewById<Button>(R.id.btnSimpan)
 
-
-        _btnSimpan.setOnClickListener {
-            val deskripsi = _editDeskripsi.text.toString()
-            val tanggal = _editTanggal.text.toString()
-            val kategori = _editKategori.text.toString()
-            val namaTask = _editNama.text.toString()
-
-            val newTask = tasklist(
-                judul = namaTask,
-                tanggal = tanggal,
-                kategori = kategori,
-                deskripsi = deskripsi
-            )
-
-            // Kirim data kembali ke MainActivity
-            val resultIntent = Intent()
-            resultIntent.putExtra("newTask", newTask)
-            setResult(RESULT_OK, resultIntent)
-            finish()
+        val isEditMode = intent.getBooleanExtra("editMode", false)
+        val task = intent.getParcelableExtra<tasklist>("task")
+        val taskIndex = intent.getIntExtra("taskIndex", -1)
 
 
-//            val IntentwithData = Intent(this@addTask, MainActivity::class.java).apply {
-//                putExtra("taskName", namaTask)
-//                putExtra("taskDate", tanggal)
-//                putExtra("taskCategory", kategori)
-//                putExtra("taskDescription", deskripsi)
-//            }
-//            startActivity(IntentwithData)
-
-
-
+        if (isEditMode) {
+            title = "Edit Task"
+            task?.let {
+                _editNama.setText(it.judul)
+                _editTanggal.setText(it.tanggal)
+                _editKategori.setText(it.kategori)
+                _editDeskripsi.setText(it.deskripsi)
+            }
+        } else {
+            title = "Add Task"
         }
 
+        _btnSimpan.setOnClickListener {
+            val updatedTask = tasklist(
+                judul = _editNama.text.toString(),
+                tanggal = _editTanggal.text.toString(),
+                kategori = _editKategori.text.toString(),
+                deskripsi = _editDeskripsi.text.toString()
+            )
+
+            val resultIntent = Intent()
+            resultIntent.putExtra("updatedTask", updatedTask)
+            if (isEditMode) resultIntent.putExtra("taskIndex", taskIndex)
+
+            setResult(RESULT_OK, resultIntent)
+            finish()
+        }
     }
 }

@@ -17,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     private var arTask = arrayListOf<tasklist>()
-    private lateinit var _rwTask : RecyclerView
+    private lateinit var _rwTask: RecyclerView
     private lateinit var adapterTask: adapterRecView
 
 
@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
         _rwTask = findViewById<RecyclerView>(R.id.rvJadwal)
 
 
-        var _tambah =  findViewById<FloatingActionButton>(R.id.fab)
-        _tambah.setOnClickListener{
+        var _tambah = findViewById<FloatingActionButton>(R.id.fab)
+        _tambah.setOnClickListener {
             val intent = Intent(this@MainActivity, addTask::class.java)
             startActivityForResult(intent, 1) // Gunakan startActivityForResult
         }
@@ -43,9 +43,9 @@ class MainActivity : AppCompatActivity() {
         TampilkanData()
 
 
-
     }
-    fun TampilkanData(){
+
+    fun TampilkanData() {
         _rwTask.layoutManager = LinearLayoutManager(this)
         adapterTask = adapterRecView(arTask)
         _rwTask.adapter = adapterTask
@@ -57,20 +57,32 @@ class MainActivity : AppCompatActivity() {
                     .setTitle("HAPUS DATA")
                     .setMessage("Apakah Benar Data " + arTask[pos].judul + " akan dihapus ?")
                     .setPositiveButton(
-                        "HAPUS", DialogInterface.OnClickListener{
-                                dialog, which ->
+                        "HAPUS", DialogInterface.OnClickListener { dialog, which ->
                             arTask.removeAt(pos)
                             TampilkanData() // Beri tahu adapter bahwa item telah dihapus
                         }
                     )
                     .setNegativeButton(
-                        "BATAL", DialogInterface.OnClickListener{
-                                dialog, which ->
-                            Toast.makeText(this@MainActivity, "Data Batal Dihapus", Toast.LENGTH_LONG)
+                        "BATAL", DialogInterface.OnClickListener { dialog, which ->
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Data Batal Dihapus",
+                                Toast.LENGTH_LONG
+                            )
                                 .show()
                         }
                     ).show()
             }
+
+            override fun editData(pos: Int) {
+                val intent = Intent(this@MainActivity, addTask::class.java)
+                intent.putExtra("task", arTask[pos])
+                intent.putExtra("editMode", true)
+                intent.putExtra("taskIndex", pos)
+                startActivityForResult(intent, 2)
+
+            }
+
 
         })
 
@@ -79,11 +91,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            val newTask = data.getParcelableExtra<tasklist>("newTask")
-            if (newTask != null) {
-                arTask.add(newTask) // Tambahkan data ke array
-                adapterTask.notifyItemInserted(arTask.size - 1) // Perbarui RecyclerView
+        if (resultCode == RESULT_OK && data != null) {
+            val updatedTask = data.getParcelableExtra<tasklist>("updatedTask")
+            val taskIndex = data.getIntExtra("taskIndex", -1)
+
+            when (requestCode) {
+                1 -> { // Tambah task
+                    if (updatedTask != null) {
+                        arTask.add(updatedTask)
+                        adapterTask.notifyItemInserted(arTask.size - 1)
+                    }
+                }
+
+                2 -> { // Edit task
+                    if (updatedTask != null && taskIndex != -1) {
+                        arTask[taskIndex] = updatedTask
+                        adapterTask.notifyItemChanged(taskIndex)
+                    }
+                }
             }
         }
     }
