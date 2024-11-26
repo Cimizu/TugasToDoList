@@ -3,6 +3,7 @@ package c14220131.paba.tugastodolist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -10,10 +11,10 @@ class adapterRecView (private val listTask:ArrayList<tasklist>) : RecyclerView.A
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     interface OnItemClickCallback {
-        fun onItemClicked(data:tasklist)
+        fun delData(pos:Int)
 
     }
-    fun setInItemClickCallback(onItemClickCallback: OnItemClickCallback){
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
         this.onItemClickCallback=onItemClickCallback
     }
 
@@ -22,6 +23,7 @@ class adapterRecView (private val listTask:ArrayList<tasklist>) : RecyclerView.A
         var _deskripsi = itemView.findViewById<TextView>(R.id.deskripsi)
         var _judul = itemView.findViewById<TextView>(R.id.namaTask)
         var _tanggal = itemView.findViewById<TextView>(R.id.tanggal)
+        var _btnHapus = itemView.findViewById<Button>(R.id.btnHapus)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -39,5 +41,8 @@ class adapterRecView (private val listTask:ArrayList<tasklist>) : RecyclerView.A
         holder._judul.setText(task.judul)
         holder._tanggal.setText(task.tanggal)
         holder._deskripsi.setText(task.deskripsi)
+        holder._btnHapus.setOnClickListener{
+            onItemClickCallback.delData(position)
+        }
     }
 }
