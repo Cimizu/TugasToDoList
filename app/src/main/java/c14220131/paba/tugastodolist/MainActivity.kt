@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         _rwTask = findViewById<RecyclerView>(R.id.rvJadwal)
 
 
