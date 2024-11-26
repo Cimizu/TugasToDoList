@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:backgroundTint="#009688"
-        android:text="KERJAKAN"
+        android:text="START"
         app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
         app:layout_constraintStart_toEndOf="@+id/btnEdit"
         app:layout_constraintTop_toTopOf="@+id/btnEdit"
