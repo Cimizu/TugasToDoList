@@ -1,10 +1,9 @@
 package c14220131.paba.tugastodolist
 
-import android.app.ComponentCaller
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -14,11 +13,15 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class MainActivity : AppCompatActivity() {
     private var arTask = arrayListOf<tasklist>()
     private lateinit var _rwTask: RecyclerView
     private lateinit var adapterTask: adapterRecView
+
+    lateinit var sp : SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,9 +34,10 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        sp = getSharedPreferences("dataSP", MODE_PRIVATE)
         _rwTask = findViewById<RecyclerView>(R.id.rvJadwal)
 
-
+        loadTasks()
         var _tambah = findViewById<FloatingActionButton>(R.id.fab)
         _tambah.setOnClickListener {
             val intent = Intent(this@MainActivity, addTask::class.java)
@@ -44,10 +48,37 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+    private fun loadTasks() {
+        val gson = Gson()
+        val isiSP = sp.getString("spTask", null)
+        val type = object : TypeToken<ArrayList<tasklist>>() {}.type
+        if (isiSP != null) {
+            arTask = gson.fromJson(isiSP, type)
+        }
+
+        // Load favorites
+        arTask.addAll(loadFavoriteTasks())
+    }
+
+    private fun loadFavoriteTasks(): ArrayList<tasklist> {
+        val gson = Gson()
+        val spFavorit = sp.getStringSet("favoritTasks", mutableSetOf()) ?: mutableSetOf()
+        val favoriteTasks = ArrayList<tasklist>()
+
+        for (taskJson in spFavorit) {
+            val task = gson.fromJson(taskJson, tasklist::class.java)
+            if (!arTask.contains(task)) {
+                favoriteTasks.add(task)
+            }
+        }
+        return favoriteTasks
+    }
+
+
 
     fun TampilkanData() {
         _rwTask.layoutManager = LinearLayoutManager(this)
-        adapterTask = adapterRecView(arTask)
+        adapterTask = adapterRecView(arTask,sp)
         _rwTask.adapter = adapterTask
 
         adapterTask.setOnItemClickCallback(object : adapterRecView.OnItemClickCallback {
